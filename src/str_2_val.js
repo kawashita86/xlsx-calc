@@ -34,6 +34,11 @@ module.exports = function str_2_val(buffer, formula) {
     if (buffer.match(/^[^!]+![A-Z]+[0-9]+$/)) {
         return new RefValue(buffer, formula);
     }
+
+    if (buffer.match(/^[^!]+.[A-Z]+[0-9]+]$/)) {
+        return new RefValue(buffer, formula);
+    }
+
     if (buffer.match(/%$/)) {
         var inner = str_2_val(buffer.substr(0, buffer.length-1), formula)
         return new LazyValue(() => inner.calc() / 100)
